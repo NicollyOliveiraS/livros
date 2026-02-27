@@ -69,30 +69,55 @@ h1 {
     box-shadow: none;
 }
 
+/* Estilo para os botões de sugestão */
 .btn-sugestao {
-    background: white;
-    color: var(--primary-color);
-    border: 2px solid #fed7aa;
-    padding: 10px 20px;
+    background: #f0f4ff;
+    border: 1px solid #4361ee;
+    color: #4361ee;
+    padding: 8px 16px;
     border-radius: 30px;
-    font-weight: 600;
-    font-size: 0.95rem;
     cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
     transition: all 0.3s ease;
-    white-space: nowrap;
+    margin: 5px;
     display: inline-block;
-    width: auto;
-    min-width: fit-content;
-    margin: 0;
 }
 
 .btn-sugestao:hover {
-    background: var(--primary-color);
+    background: #4361ee;
     color: white;
-    border-color: var(--primary-color);
     transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(67, 97, 238, 0.2);
 }
 
+/* Container das sugestões */
+.sugestoes-container {
+    margin: 20px 0 30px;
+    text-align: center;
+}
+
+.sugestoes-container p {
+    color: #6b7280;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.sugestoes-lista {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Ajuste para os forms inline */
+.sugestoes-lista form {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    background: none;
+    box-shadow: none;
+}
 /* Formulário de Busca Estilizado */
 form {
     display: flex;

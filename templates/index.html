@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BookMatch</title>
-    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
@@ -21,7 +21,7 @@
         <p>Sugestões do dia:</p>
         <div class="sugestoes-lista">
             {% for sugestao in sugestoes %}
-                <form method="POST" style="display: inline; background: none; padding: 0; box-shadow: none; margin-bottom: 0;">
+                <form method="POST" style="display: inline;">
                     <input type="hidden" name="livro" value="{{ sugestao }}">
                     <button type="submit" class="btn-sugestao">{{ sugestao }}</button>
                 </form>
@@ -54,36 +54,35 @@
             </div>
         </div>
 
-       <!-- Seção de Livros Semelhantes -->
-<!-- Livros Semelhantes -->
-{% if semelhantes %}
-<h2 class="titulo-semelhantes">📚 Livros Semelhantes</h2>
-<div class="grid-semelhantes">
-    {% for livro in semelhantes %}
-    <a href="{{ url_for('livro_detalhe', titulo=livro.titulo) }}" class="semelhante-card-link">
-        <div class="card-livro">
-            <div class="capa-card">
-                {% if livro.capa %}
-                <img src="{{ livro.capa }}" alt="{{ livro.titulo }}">
-                {% else %}
-                <div class="capa-placeholder-card">Sem capa</div>
-                {% endif %}
+        {% if semelhantes %}
+            <h2 class="titulo-semelhantes">📚 Livros Semelhantes</h2>
+            <div class="grid-semelhantes">
+                {% for livro in semelhantes %}
+                    <a href="{{ url_for('livro_detalhe', titulo=livro.titulo) }}" class="semelhante-card-link">
+                        <div class="card-livro">
+                            <div class="capa-card">
+                                {% if livro.capa %}
+                                    <img src="{{ livro.capa }}" alt="{{ livro.titulo }}">
+                                {% else %}
+                                    <div class="capa-placeholder-card">Sem capa</div>
+                                {% endif %}
+                            </div>
+                            <div class="info-card">
+                                <h6>{{ livro.titulo }}</h6>
+                                <small>{{ livro.autor }}</small>
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
             </div>
-            <div class="info-card">
-                <h6>{{ livro.titulo }}</h6>
-                <small>{{ livro.autor }}</small>
-            </div>
-        </div>
-    </a>
-    {% endfor %}
-</div>
-{% endif %}
+        {% endif %}
 
     {% elif request.method == 'POST' %}
         <div class="alerta-erro">
             Não encontramos nenhum livro com esse nome. Tente pesquisar de outra forma!
         </div>
-    {% endif %} </div>
+    {% endif %}
+</div>
 
 </body>
 </html>

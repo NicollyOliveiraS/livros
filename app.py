@@ -261,5 +261,30 @@ def livro_detalhe(titulo):
                            semelhantes=semelhantes,
                            sugestoes=sugestoes)
 
+# ========== HANDLERS DE ERRO ==========
+@app.errorhandler(404)
+def pagina_nao_encontrada(error):
+    """Handler para erro 404 - Página não encontrada"""
+    sugestoes = [
+        "Dom Casmurro", 
+        "1984", 
+        "A Hora da Estrela", 
+        "O Hobbit",
+        "Memórias Póstumas de Brás Cubas"
+    ]
+    return render_template('404.html', sugestoes=sugestoes), 404
+
+@app.errorhandler(500)
+def erro_interno_servidor(error):
+    """Handler para erro 500 - Erro interno do servidor"""
+    sugestoes = [
+        "Dom Casmurro", 
+        "1984", 
+        "A Hora da Estrela", 
+        "O Hobbit",
+        "Memórias Póstumas de Brás Cubas"
+    ]
+    return render_template('500.html', sugestoes=sugestoes), 500
+
 if __name__ == "__main__":
     app.run(debug=True)

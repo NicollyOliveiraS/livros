@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request
 import requests
 from deep_translator import GoogleTranslator
 
@@ -194,7 +194,7 @@ def buscar_semelhantes_openlibrary(assunto, titulo_atual=None):
                 seen.add(livro["titulo"])
                 semelhantes_unicos.append(livro)
         
-        return semelhantes_unicos[:4]  # Retorna no máximo 5 livros
+        return semelhantes_unicos[:5]  # Retorna no máximo 6 livros
         
     except Exception as e:
         print(f"Erro ao buscar semelhantes: {e}")
@@ -236,30 +236,6 @@ def index():
                            semelhantes=semelhantes,
                            sugestoes=sugestoes)
 
-# NOVA ROTA: Para buscar um livro específico pelo título
-@app.route("/livro/<path:titulo>")
-def livro_detalhe(titulo):
-    livro_principal = buscar_livro_openlibrary(titulo)
-    semelhantes = []
-    
-    if livro_principal:
-        semelhantes = buscar_semelhantes_openlibrary(
-            livro_principal["assunto"], 
-            livro_principal["titulo"]
-        )
-    
-    sugestoes = [
-        "Dom Casmurro", 
-        "1984", 
-        "A Hora da Estrela", 
-        "O Hobbit",
-        "Memórias Póstumas de Brás Cubas"
-    ]
-    
-    return render_template("index.html", 
-                           livro_principal=livro_principal,
-                           semelhantes=semelhantes,
-                           sugestoes=sugestoes)
 
 # ========== HANDLERS DE ERRO ==========
 @app.errorhandler(404)

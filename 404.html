@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Página não encontrada | BookMatch</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .error-container {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        .error-code {
+            font-size: 120px;
+            color: #f97316;
+            margin: 0;
+            line-height: 1;
+            text-shadow: 4px 4px 0 #e0e7ff;
+        }
+        .error-title {
+            font-size: 32px;
+            color: #1f2937;
+            margin: 10px 0 20px;
+        }
+        .error-message {
+            font-size: 18px;
+            color: #6b7280;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        .error-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+        }
+        .btn-primary {
+            background: #fb923c;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        .btn-primary:hover {
+            background: #f17e2b;
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background: white;
+            color: #f97316;
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 2px solid #f97316;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        .btn-secondary:hover {
+            background: #f0f4ff;
+            transform: translateY(-2px);
+        }
+        .sugestoes-404 {
+            background: #f9fafb;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .sugestoes-404 h3 {
+            color: #1f2937;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+        .sugestoes-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        .sugestao-btn {
+            background: white;
+            border: 1px solid #e5e7eb;
+            color: #4b5563;
+            padding: 8px 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        .sugestao-btn:hover {
+            background: #ee8c30;
+            color: white;
+            border-color:#f97316;   
+;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>BookMatch</h1>
+        
+        <div class="error-container">
+            <div class="error-code">404</div>
+            <h2 class="error-title">Oops! Página não encontrada</h2>
+            <p class="error-message">
+                A página que você está procurando pode ter sido removida, 
+                teve seu nome alterado ou está temporariamente indisponível.
+            </p>
+            
+            <div class="error-actions">
+                <a href="{{ url_for('index') }}" class="btn-primary">Voltar para a página inicial</a>
+                <a href="javascript:history.back()" class="btn-secondary">Voltar para a página anterior</a>
+            </div>
+            
+            <div class="sugestoes-404">
+                <h3>📚 Que tal experimentar uma destas sugestões?</h3>
+                <div class="sugestoes-grid">
+                    {% for sugestao in sugestoes %}
+                    <form method="POST" action="{{ url_for('index') }}" style="display: inline;">
+                        <input type="hidden" name="livro" value="{{ sugestao }}">
+                        <button type="submit" class="sugestao-btn">{{ sugestao }}</button>
+                    </form>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

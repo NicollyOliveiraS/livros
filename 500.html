@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>500 - Erro interno | BookMatch</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .error-container {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        .error-code {
+            font-size: 120px;
+            color: #ef4444;
+            margin: 0;
+            line-height: 1;
+            text-shadow: 4px 4px 0 #fee2e2;
+        }
+        .error-title {
+            font-size: 32px;
+            color: #1f2937;
+            margin: 10px 0 20px;
+        }
+        .error-message {
+            font-size: 18px;
+            color: #6b7280;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        .error-detail {
+            background: #fef2f2;
+            border-left: 4px solid #ef4444;
+            padding: 15px 20px;
+            max-width: 500px;
+            margin: 0 auto 40px;
+            text-align: left;
+            border-radius: 4px;
+            color: #b91c1c;
+            font-size: 14px;
+        }
+        .error-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+        }
+        .btn-primary {
+            background: #fb923c;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        .btn-primary:hover {
+            background: #f17e2b;
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background: white;
+            color: #f97316;
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 2px solid #f97316;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        .btn-secondary:hover {
+            background: #f0f4ff;
+            transform: translateY(-2px);
+        }
+        .support-info {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 500px;
+            margin: 30px auto 0;
+            font-size: 14px;
+            color: #6b7280;
+        }
+        .support-info i {
+            font-style: italic;
+        }
+        .retry-btn {
+            background: none;
+            border: 1px solid #e5e7eb;
+            color: #4b5563;
+            padding: 8px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 15px;
+            transition: all 0.2s;
+        }
+        .retry-btn:hover {
+            background: #f3f4f6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>BookMatch</h1>
+        
+        <div class="error-container">
+            <div class="error-code">500</div>
+            <h2 class="error-title">Ops! Algo deu errado</h2>
+            <p class="error-message">
+                Encontramos um problema interno no servidor. Nossa equipe foi notificada 
+                e está trabalhando para resolver o mais rápido possível.
+            </p>
+            
+            <div class="error-detail">
+                <strong>🔧 Detalhes técnicos:</strong> Erro interno do servidor. 
+                Por favor, tente novamente mais tarde.
+            </div>
+            
+            <div class="error-actions">
+                <a href="{{ url_for('index') }}" class="btn-primary">Voltar para a página inicial</a>
+                <a href="javascript:location.reload()" class="btn-secondary">Tentar novamente</a>
+            </div>
+            
+            <form method="POST" action="{{ url_for('index') }}" style="margin-top: 30px;">
+                <p style="color: #6b7280; margin-bottom: 15px;">Ou faça uma nova busca:</p>
+                <div style="display: flex; gap: 10px; max-width: 500px; margin: 0 auto;">
+                    <input type="text" name="livro" placeholder="Digite o nome de um livro..." 
+                           style="flex: 1; padding: 12px; border: 1px solid #e5e7eb; border-radius: 6px;">
+                    <button type="submit" style="background: #4361ee; color: white; border: none; 
+                                                padding: 12px 20px; border-radius: 6px; cursor: pointer;">
+                        Buscar
+                    </button>
+                </div>
+            </form>
+            
+            <div class="support-info">
+                <p>Se o problema persistir, você pode:</p>
+                <ul style="text-align: left; margin-top: 10px; padding-left: 20px;">
+                    <li>Limpar o cache do navegador</li>
+                    <li>Tentar novamente em alguns minutos</li>
+                    <li>Entrar em contato com o suporte</li>
+                </ul>
+                <button onclick="history.back()" class="retry-btn">← Voltar para a página anterior</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

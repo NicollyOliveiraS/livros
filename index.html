@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookMatch</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>BookMatch</h1>
+        
+        <!-- Sugestões rápidas -->
+        <div class="sugestoes-container">
+            <p>Sugestões de livros:</p>
+            <div class="sugestoes-lista">
+                {% for sugestao in sugestoes %}
+                <form method="POST">
+                    <input type="hidden" name="livro" value="{{ sugestao }}">
+                    <button type="submit" class="btn-sugestao">{{ sugestao }}</button>
+                </form>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Formulário de busca principal -->
+        <form method="POST">
+            <input type="text" name="livro" placeholder="Digite o nome do livro..." required>
+            <button type="submit">Buscar</button>
+            <a href="{{ url_for('index') }}" class="btn-limpar">Limpar</a>
+        </form>
+
+        <!-- Livro Principal -->
+        {% if livro_principal %}
+        <div class="livro-principal">
+            <div class="capa-principal">
+                {% if livro_principal.capa %}
+                <img src="{{ livro_principal.capa }}" alt="{{ livro_principal.titulo }}" class="capa-principal">
+                {% else %}
+                <div class="capa-principal" style="background: #ffedd5; display: flex; align-items: center; justify-content: center; aspect-ratio: 2/3;">
+                    <span>Sem capa</span>
+                </div>
+                {% endif %}
+            </div>
+            <div class="info-principal">
+                <h2>{{ livro_principal.titulo }}</h2>
+                <p class="autor-texto">por {{ livro_principal.autor }}</p>
+                {% if livro_principal.assunto %}
+                <span class="badge">{{ livro_principal.assunto }}</span>
+                {% endif %}
+                <div class="description-box">
+                    <strong>Sinopse:</strong>
+                    <p>{{ livro_principal.descricao }}</p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Livros Semelhantes -->
+        {% if semelhantes %}
+        <h2 class="titulo-semelhantes">📚 Livros Semelhantes</h2>
+        <div class="grid-semelhantes">
+            {% for livro in semelhantes %}
+            <div class="card-livro">
+                <div class="capa-card">
+                    {% if livro.capa %}
+                    <img src="{{ livro.capa }}" alt="{{ livro.titulo }}">
+                    {% else %}
+                    <div style="width: 100%; height: 100%; background: #ffedd5; display: flex; align-items: center; justify-content: center;">
+                        <span>Sem capa</span>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="info-card">
+                    <h6>{{ livro.titulo }}</h6>
+                    <small>{{ livro.autor }}</small>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Mensagem de erro -->
+        {% if request.method == "POST" and not livro_principal %}
+        <div class="alerta-erro">
+            <p>❌ Nenhum livro encontrado. Tente outro título.</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -1,11 +1,13 @@
 from flask import Flask, render_template, request
 import requests
 from deep_translator import GoogleTranslator
+import os  # Adicione esta linha
 
 app = Flask(__name__)
 
 # Configuração do Tradutor para Português
 translator = GoogleTranslator(source='auto', target='pt')
+
 
 def buscar_livro_openlibrary(nome):
     url = "https://openlibrary.org/search.json"
